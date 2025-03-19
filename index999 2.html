@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Військово-обліковий документ</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #eae4b1;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+
+        .header {
+            background-color: #005b00;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .menu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .menu::after {
+            content: '...';
+            color: black;
+            font-size: 24px;
+        }
+
+        .nav {
+            display: none;
+            text-align: left;
+            margin: 0;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            bottom: 80px; /* Положение меню над кнопкой */
+            right: 20px;
+            z-index: 1000; /* Чтобы меню было поверх других элементов */
+        }
+
+        .nav p {
+            margin: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav p i {
+            margin-right: 10px;
+            color: #005b00; /* Цвет иконок */
+        }
+
+        .alert {
+            background-color: #ffffcc;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .info {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .info strong {
+            font-size: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 16px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Стили для шторок */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay-content {
+            background-color: #eae4b1; /* Цвет фона как у остальной информации */
+            padding: 20px;
+            border-radius: 5px;
+            text-align: left;
+            max-width: 80%;
+            margin: auto;
+            color: #000; /* Цвет текста */
+        }
+
+        .detail-info {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+        }
+
+        .contact-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-button {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .header {
+                font-size: 20px;
+            }
+
+            .alert, .info, .footer {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .info strong {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        Військово-обліковий документ
+    </div>
+
+    <div class="alert">
+        Знято • Дані оновлено о 11:34 | 16.03.2025
+        <br>
+        <strong>Зверніть увагу:</strong> дані можуть бути неактуальні. <a href="#">Оновіть базу</a>
+    </div>
+
+    <div class="info">
+        <strong>БУРЯК Олег Юрійович</strong>
+        <p>Знято</p>
+        <p><strong>Термін дії:</strong> 16.10.2025</p>
+        <p><strong>Дата народження:</strong> 19.09.1986</p>
+        <p><strong>РНКПП:</strong> 3167319610</p>
+        <p><strong>Підстава зняття чи виключення:</strong></p>
+        <p>Надання відстрочки, визначених ст.23. Закону України про мобілізацію та мобілізаційну підготовку</p>
+        <p><strong>Постанова ВЛК:</strong> -</p>
+        <p><strong>Дата ВЛК:</strong> -</p>
+    </div>
+
+    <div class="info">
+        <p><strong>ТЦК та СП:</strong> Дніпропетровський обласний ОТЦК та СП</p>
+        <p><strong>Категорія обліку:</strong> На відстрочці</p>
+        <p><strong>Дата уточнення даних:</strong> 16.03.2025 11:33:59</p>
+    </div>
+
+    <div class="footer">
+        QR код
+    </div>
+
+    <div class="menu" onclick="toggleMenu()"></div>
+
+    <div class="nav" id="nav">
+        <p onclick="showDetails()" style="cursor: pointer;"><i class="fas fa-info-circle"></i> Детальні відомості</p>
+        <p onclick="downloadPDF()" style="cursor: pointer;"><i class="fas fa-file-alt"></i> Завантажити документ у PDF</p>
+        <p onclick="refreshPage()" style="cursor: pointer;"><i class="fas fa-sync-alt"></i> Оновити інформацію</p>
+        <p onclick="showBLKMessage()" style="cursor: pointer;"><i class="fas fa-arrow-right"></i> Направлення на військово-лікарську комісію</p>
+        <p onclick="showContactInfo()" style="cursor: pointer;"><i class="fas fa-pencil-alt"></i> Оновити контактні дані</p>
+    </div>
+
+    <!-- Шторки для подробной информации -->
+    <div id="detailInfo" class="overlay">
+        <div class="overlay-content">
+            <div class="detail-info">
+                <strong>БУРЯК ОЛЕКСАНДР ЮРІЙОВИЧ</strong>
+                <p>Знято</p>
+                <p><strong>Термін дії:</strong> 12.02.2026</p>
+                <p><strong>Дата народження:</strong> 19.09.1986</p>
+                <p><strong>РНКПП:</strong> 3167319610</p>
+                <p><strong>Підстава зняття чи виключення:</strong></p>
+                <p>Надання відстрочки, визначених ст.23. Закону України про мобілізацію та мобілізаційну підготовку</p>
+                <p><strong>Постанова ВЛК:</strong> -</p>
+                <p><strong>Дата ВЛК:</strong> -</p>
+                <p><strong>ТЦК та СП:</strong> Деснянський районний і м.Київ територіальний центр комплектування та соціальної підтримки</p>
+                <p><strong>Категорія обліку:</strong> На відстрочці</p>
+                <p><strong>Дата уточнення даних:</strong> 11.02.2025</p>
+            </div>
+            <button onclick="closeDetail()">Закрити</button>
+        </div>
+    </div>
+
+    <!-- Шторка для направлення на ВЛК -->
+    <div id="blkMessage" class="overlay">
+        <div class="overlay-content">
+            <div class="blq-message">
+                <strong>Запит на ВЛК недоступний</strong>
+                <p>Ви виключені з військового обліку. Зараз цей сервіс діє лише для військовозобов'язаних.</p>
+                <p>Якщо ви маєте бути на обліку, то зверніться до ТЦК.</p>
+            </div>
+            <button class="blq-button" onclick="closeBLKMessage()">Зрозуміло</button>
+        </div>
+    </div>
+
+    <!-- Шторка для уточнення контактних даних -->
+    <div id="contactInfo" class="overlay">
+        <div class="overlay-content">
+            <h2>Уточнення контактних даних</h2>
+            <div class="contact-info">
+                <p>Номер телефону:</p>
+                <input type="text" class="contact-input" value="+38 068 114 2271">
+                
+                <p>Адреса проживання:</p>
+                <input type="text" class="contact-input" value="Україна, Київ, Київ, Майківського Володимира, 6, 17-Д, кв. 114">
+                
+                <p>Email адреса:</p>
+                <input type="email" class="contact-input" placeholder="Ввести email">
+            </div>
+            <button class="contact-button" onclick="closeContactInfo()">Зберегти</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function showDetails() {
+            var detailInfo = document.getElementById('detailInfo');
+            detailInfo.style.display = 'flex';
+        }
+
+        function closeDetail() {
+            var detailInfo = document.getElementById('detailInfo');
+            detailInfo.style.display = 'none';
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        function showBLKMessage() {
+            var blkMessage = document.getElementById('blkMessage');
+            blkMessage.style.display = 'flex';
+        }
+
+        function closeBLKMessage() {
+            var blkMessage = document.getElementById('blkMessage');
+            blkMessage.style.display = 'none';
+        }
+
+        function showContactInfo() {
+            var contactInfo = document.getElementById('contactInfo');
+            contactInfo.style.display = 'flex';
+        }
+
+        function closeContactInfo() {
+            var contactInfo = document.getElementById('contactInfo');
+            contactInfo.style.display = 'none';
+        }
+
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = 'https://drive.google.com/uc?id=1rIitKNvIH04Da_c1LcYUQ08VQIH--xNy'; // Ссылка на изображение
+            link.download = 'резерв_document.png'; // Имя файла
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+    </script>
+</body>
+</html>
